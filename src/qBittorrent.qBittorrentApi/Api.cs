@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
-using System.Security.Authentication;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -34,7 +34,7 @@ namespace qBittorrent.qBittorrentApi
             {
                 if (!await Login())
                 {
-                    throw new AuthenticationException();
+                    throw new SecurityException();
                 }
             }
         }

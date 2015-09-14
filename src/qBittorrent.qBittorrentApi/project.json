@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1-*",
+  "version": "0.0.2-*",
   "description": "qBittorrent.qBittorrentApi Class Library",
   "authors": [ "rbarbe" ],
   "repository": {
@@ -9,21 +9,20 @@
   "tags": [ "" ],
   "projectUrl": "https://github.com/rbarbe/qBittorrentApi",
   "licenseUrl": "https://raw.githubusercontent.com/rbarbe/qBittorrentApi/master/LICENSE",
-  "frameworks": {
-    "dnx451": { },
-    "dnxcore50": {
-      "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-23225",
-        "System.Collections": "4.0.11-beta-23225",
-        "System.Linq": "4.0.1-beta-23225",
-        "System.Net.Security": "4.0.0-beta-23225",
-        "System.Runtime": "4.0.21-beta-23225",
-        "System.Threading": "4.0.11-beta-23225"
-      }
-    }
+  "supports": {
+    "net46.app": {},
+    "uwp.10.0.app": { },
+    "dnxcore50.app": {}
   },
   "dependencies": {
     "Newtonsoft.Json": "7.0.1",
-    "System.Net.Http": "4.0.1-beta-23225"
+    "System.Net.Http": "4.0.1-beta-23225",
+    "System.Collections": "4.0.11-beta-23225",
+    "System.Globalization": "4.0.11-beta-23225"
+  },
+  "frameworks": {
+    "dotnet": {
+      "imports": "portable-net452+win81"
+    }
   }
 }

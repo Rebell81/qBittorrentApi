@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Security;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 using Microsoft.Framework.Configuration;
@@ -33,7 +34,7 @@ namespace qBittorrent.qBittorrentApi.Test
         {
             var api = new Api(new ServerCredential(_serverCredential.Uri, _serverCredential.Username, "WrongPassword"));
 
-            await Assert.ThrowsAsync<AuthenticationException>(async () =>
+            await Assert.ThrowsAsync<SecurityException>(async () =>
             {
                 try
                 {

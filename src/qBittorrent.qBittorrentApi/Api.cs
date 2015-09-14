@@ -92,8 +92,6 @@ namespace qBittorrent.qBittorrentApi
         public async Task<GeneralProperties> GetGeneralProperties(string hash)
         {
             var jsonStr = await _httpClient.GetStringAsync(new Uri("/query/propertiesGeneral/" + hash, UriKind.Relative));
-            var jsonStr =
-                await _httpClient.GetStringAsync(new Uri("/query/propertiesGeneral/" + hash, UriKind.Relative));
             return JsonConvert.DeserializeObject<GeneralProperties>(jsonStr);
         }
 

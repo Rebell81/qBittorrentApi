@@ -1,6 +1,7 @@
 {
-  "version": "0.0.2-*",
-  "description": "qBittorrent.qBittorrentApi Class Library",
+  "version": "0.0.3-*",
+  "title": "qBittorrent Web Api Client",
+  "description": "Http Client for the qBittorrent Web Api using System.Net.Http",
   "authors": [ "rbarbe" ],
   "repository": {
     "type": "git",
@@ -16,9 +17,9 @@
   },
   "dependencies": {
     "Newtonsoft.Json": "7.0.1",
-    "System.Net.Http": "4.0.1-beta-23225",
-    "System.Collections": "4.0.11-beta-23225",
-    "System.Globalization": "4.0.11-beta-23225"
+    "System.Net.Http": "4.0.0",
+    "System.Collections": "4.0.10",
+    "System.Globalization": "4.0.10"
   },
   "frameworks": {
     "dotnet": {

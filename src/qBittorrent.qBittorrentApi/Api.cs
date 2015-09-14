@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Security;
@@ -41,12 +40,11 @@ namespace qBittorrent.qBittorrentApi
 
         private async Task<bool> Login()
         {
-            HttpContent bodyContent = new FormUrlEncodedContent(
-                new List<KeyValuePair<string, string>>
-                {
-                    new KeyValuePair<string, string>("username", _serverCredential.Username),
-                    new KeyValuePair<string, string>("password", _serverCredential.Password)
-                });
+            HttpContent bodyContent = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("username", _serverCredential.Username),
+                new KeyValuePair<string, string>("password", _serverCredential.Password)
+            });
 
             var uri = new Uri("/login", UriKind.Relative);
 
@@ -74,14 +72,13 @@ namespace qBittorrent.qBittorrentApi
         {
             await CheckAuthentification();
 
-            var keyValuePairs = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("filter", filter.ToString().ToLower())
-            };
+            var keyValuePairs = new KeyValuePair<string, string>[2];
+            keyValuePairs.SetValue(new KeyValuePair<string, string>("filter", filter.ToString().ToLower()), 0);
+
 
             if (label != null)
             {
-                keyValuePairs.Add(new KeyValuePair<string, string>("label", label));
+                keyValuePairs.SetValue(new KeyValuePair<string, string>("label", label), 1);
             }
 
             HttpContent content = new FormUrlEncodedContent(keyValuePairs);
@@ -95,10 +92,12 @@ namespace qBittorrent.qBittorrentApi
         public async Task<GeneralProperties> GetGeneralProperties(string hash)
         {
             var jsonStr = await _httpClient.GetStringAsync(new Uri("/query/propertiesGeneral/" + hash, UriKind.Relative));
+            var jsonStr =
+                await _httpClient.GetStringAsync(new Uri("/query/propertiesGeneral/" + hash, UriKind.Relative));
             return JsonConvert.DeserializeObject<GeneralProperties>(jsonStr);
         }
 
-        public async Task<bool> DownloadFromUrls(List<Uri> uris)
+        public async Task<bool> DownloadFromUrls(IList<Uri> uris)
         {
             await CheckAuthentification();
 
@@ -109,11 +108,10 @@ namespace qBittorrent.qBittorrentApi
                 stringBuilder.Append('\n');
             }
 
-            HttpContent bodyContent = new FormUrlEncodedContent(
-                new List<KeyValuePair<string, string>>
-                {
-                    new KeyValuePair<string, string>("urls", stringBuilder.ToString())
-                });
+            HttpContent bodyContent = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("urls", stringBuilder.ToString())
+            });
 
             var uriDownload = new Uri("/command/download", UriKind.Relative);
             var httpResponseMessage = await _httpClient.PostAsync(uriDownload, bodyContent);
@@ -121,13 +119,11 @@ namespace qBittorrent.qBittorrentApi
             return httpResponseMessage.IsSuccessStatusCode;
         }
 
-        public async Task<bool> Upload(List<Stream> streams)
+        public async Task<bool> Upload(IList<Stream> streams)
         {
             await CheckAuthentification();
 
-            using (
-                var content =
-                    new MultipartFormDataContent("Upload----" + DateTime.Now))
+            using (var content = new MultipartFormDataContent("Upload----" + DateTime.Now))
             {
                 foreach (var stream in streams)
                 {
@@ -141,7 +137,7 @@ namespace qBittorrent.qBittorrentApi
             }
         }
 
-        public async Task<bool> DeletePermanently(List<string> hashes)
+        public async Task<bool> DeletePermanently(IList<string> hashes)
         {
             await CheckAuthentification();
 
@@ -152,11 +148,10 @@ namespace qBittorrent.qBittorrentApi
                 stringBuilder.Append('|');
             }
 
-            HttpContent bodyContent = new FormUrlEncodedContent(
-                new List<KeyValuePair<string, string>>
-                {
-                    new KeyValuePair<string, string>("hashes", stringBuilder.ToString())
-                });
+            HttpContent bodyContent = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("hashes", stringBuilder.ToString())
+            });
 
             var uriDownload = new Uri("/command/deletePerm", UriKind.Relative);
             var httpResponseMessage = await _httpClient.PostAsync(uriDownload, bodyContent);

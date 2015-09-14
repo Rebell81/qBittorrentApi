@@ -92,6 +92,12 @@ namespace qBittorrent.qBittorrentApi
             return JsonConvert.DeserializeObject<IList<Torrent>>(jsonStr);
         }
 
+        public async Task<GeneralProperties> GetGeneralProperties(string hash)
+        {
+            var jsonStr = await _httpClient.GetStringAsync(new Uri("/query/propertiesGeneral/" + hash, UriKind.Relative));
+            return JsonConvert.DeserializeObject<GeneralProperties>(jsonStr);
+        }
+
         public async Task<bool> DownloadFromUrls(List<Uri> uris)
         {
             await CheckAuthentification();

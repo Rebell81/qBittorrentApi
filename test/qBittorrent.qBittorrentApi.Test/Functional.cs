@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Security;
-using System.Security.Authentication;
 using System.Threading.Tasks;
 using Microsoft.Framework.Configuration;
 using Xunit;
@@ -173,6 +172,30 @@ namespace qBittorrent.qBittorrentApi.Test
             var afterDeleteTorrents = await api.GetTorrents();
 
             Assert.Equal(afterDeleteTorrents.Count, initialTorrents.Count);
+        }
+
+        [Fact]
+        public async Task TestGetGeneralProperties()
+        {
+            var api = new Api(_serverCredential);
+
+            var initialTorrents = await api.GetTorrents();
+
+            var uris = new List<Uri>
+            {
+                new Uri("magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
+            };
+
+            await api.DownloadFromUrls(uris);
+
+            var hashes = new List<string>
+            {
+                "cd8158937344b2a066446bed7e7a0c45214f1245"
+            };
+
+            await api.GetGeneralProperties(hashes.SingleOrDefault());
+
+            await api.DeletePermanently(hashes);
         }
     }
 }

@@ -111,15 +111,15 @@ namespace qBittorrent.qBittorrentApi.Test
             var uris = new List<Uri>
             {
                 new Uri(
-                    "magnet:?xt=urn:btih:7FF6F24A0197E040524513C633BF476FD2565D04&dn=udemy+the+comprehensive+guide+to+c&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce"),
+                    "magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce"),
                 new Uri(
-                    "magnet:?xt=urn:btih:A8D0846144C3E7A6945EEBE2D7F9DFBE8C839A86&dn=continuum+s04e01+lost+hours+web+dl+x264+fum+ettv&tr=udp%3A%2F%2Ftracker.publicbt.com%2Fannounce&tr=udp%3A%2F%2Fopen.demonii.com%3A1337")
+                    "magnet:?xt=urn:btih:e508e5f1c7ad6650eb41d38f29aa567923b3934f&dn=debian-8.2.0-amd64-DVD-2.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
             };
 
             var hashes = new List<string>
             {
-                "7FF6F24A0197E040524513C633BF476FD2565D04",
-                "A8D0846144C3E7A6945EEBE2D7F9DFBE8C839A86"
+                "cd8158937344b2a066446bed7e7a0c45214f1245",
+                "e508e5f1c7ad6650eb41d38f29aa567923b3934f"
             };
 
             // Cleanup

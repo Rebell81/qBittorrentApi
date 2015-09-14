@@ -127,7 +127,7 @@ namespace qBittorrent.qBittorrentApi
 
             using (
                 var content =
-                    new MultipartFormDataContent("Upload----" + DateTime.Now.ToString(CultureInfo.InvariantCulture)))
+                    new MultipartFormDataContent("Upload----" + DateTime.Now))
             {
                 foreach (var stream in streams)
                 {

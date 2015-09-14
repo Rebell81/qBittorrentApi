@@ -18,8 +18,7 @@
   "dependencies": {
     "Newtonsoft.Json": "7.0.1",
     "System.Net.Http": "4.0.0",
-    "System.Collections": "4.0.10",
-    "System.Globalization": "4.0.10"
+    "System.Collections": "4.0.10"
   },
   "frameworks": {
     "dotnet": {

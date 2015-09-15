@@ -179,7 +179,8 @@ namespace qBittorrent.qBittorrentApi.Test
 
             var uris = new[]
             {
-                new Uri("magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
+                new Uri(
+                    "magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
             };
             var hashes = new[]
             {
@@ -189,7 +190,7 @@ namespace qBittorrent.qBittorrentApi.Test
             await api.DownloadFromUrls(uris);
 
             await api.WaitForTorrentToStart(hashes.FirstOrDefault());
-            
+
             var generalProperties = await api.GetGeneralProperties(hashes.SingleOrDefault());
 
             Assert.True(generalProperties.TimeElapsed > 0);
@@ -204,7 +205,8 @@ namespace qBittorrent.qBittorrentApi.Test
 
             var uris = new[]
             {
-                new Uri("magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
+                new Uri(
+                    "magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
             };
             var hashes = new[]
             {

@@ -91,13 +91,15 @@ namespace qBittorrent.qBittorrentApi
 
         public async Task<GeneralProperties> GetGeneralProperties(string hash)
         {
-            var jsonStr = await _httpClient.GetStringAsync(new Uri("/query/propertiesGeneral/" + hash, UriKind.Relative));
+            var jsonStr =
+                await _httpClient.GetStringAsync(new Uri("/query/propertiesGeneral/" + hash, UriKind.Relative));
             return JsonConvert.DeserializeObject<GeneralProperties>(jsonStr);
         }
 
         public async Task<IList<TrackersProperties>> GetTrackersProperties(string hash)
         {
-            var jsonStr = await _httpClient.GetStringAsync(new Uri("/query/propertiesTrackers/" + hash, UriKind.Relative));
+            var jsonStr =
+                await _httpClient.GetStringAsync(new Uri("/query/propertiesTrackers/" + hash, UriKind.Relative));
             return JsonConvert.DeserializeObject<IList<TrackersProperties>>(jsonStr);
         }
 

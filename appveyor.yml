@@ -1,4 +1,4 @@
-os: unstable
+os: Unstable
 
 init:
   - git config --global core.autocrlf true
@@ -9,8 +9,7 @@ build_script:
   - cinst qbittorrent -y
   - cmd: mkdir %APPDATA%\qBittorrent
   - cmd: copy /y %APPVEYOR_BUILD_FOLDER%\ci\qBittorrent.ini %APPDATA%\qBittorrent\
-  - cd "%PROGRAMFILES(X86)%\qBittorrent\"
-  - qBittorrent.exe
+  - ci\qbittorrent.bat
   - build.cmd --quiet verify
 clone_depth: 1
 test: off

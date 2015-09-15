@@ -1,0 +1,5 @@
+set "USERPROFILE=%USERPROFILE%\..\%USERNAME%"
+set "APPDATA=%USERPROFILE%\AppData\Roaming"
+set "LOCALAPPDATA=%USERPROFILE%\AppData\Local"
+cd "%PROGRAMFILES(X86)%\qBittorrent"
+call "cmd /c start qBittorrent.exe"

@@ -108,7 +108,7 @@ namespace qBittorrent.qBittorrentApi.Test
         {
             var api = new Api(_serverCredential);
 
-            var uris = new List<Uri>
+            var uris = new[]
             {
                 new Uri(
                     "magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce"),
@@ -116,7 +116,7 @@ namespace qBittorrent.qBittorrentApi.Test
                     "magnet:?xt=urn:btih:e508e5f1c7ad6650eb41d38f29aa567923b3934f&dn=debian-8.2.0-amd64-DVD-2.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
             };
 
-            var hashes = new List<string>
+            var hashes = new[]
             {
                 "cd8158937344b2a066446bed7e7a0c45214f1245",
                 "e508e5f1c7ad6650eb41d38f29aa567923b3934f"
@@ -145,7 +145,7 @@ namespace qBittorrent.qBittorrentApi.Test
 
             var initialTorrents = await api.GetTorrents();
 
-            var streams = new List<Stream>
+            var streams = new[]
             {
                 await
                     new HttpClient().GetStreamAsync(
@@ -159,14 +159,14 @@ namespace qBittorrent.qBittorrentApi.Test
 
             var afterUploadTorrents = await api.GetTorrents();
 
-            Assert.Equal(initialTorrents.Count + streams.Count, afterUploadTorrents.Count);
+            Assert.Equal(initialTorrents.Count + streams.Length, afterUploadTorrents.Count);
 
             var hashList =
                 afterUploadTorrents.Select(t => t.Hash)
                     .ToList()
                     .Except(initialTorrents.Select(t => t.Hash).ToList())
                     .ToList();
-            Assert.Equal(streams.Count, hashList.Count());
+            Assert.Equal(streams.Length, hashList.Count());
 
             await api.DeletePermanently(hashList);
             var afterDeleteTorrents = await api.GetTorrents();
@@ -179,21 +179,22 @@ namespace qBittorrent.qBittorrentApi.Test
         {
             var api = new Api(_serverCredential);
 
-            var initialTorrents = await api.GetTorrents();
-
-            var uris = new List<Uri>
+            var uris = new[]
             {
                 new Uri("magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
             };
-
-            await api.DownloadFromUrls(uris);
-
-            var hashes = new List<string>
+            var hashes = new[]
             {
                 "cd8158937344b2a066446bed7e7a0c45214f1245"
             };
 
-            await api.GetGeneralProperties(hashes.SingleOrDefault());
+            await api.DownloadFromUrls(uris);
+
+            await api.WaitForTorrentToStart(hashes.FirstOrDefault());
+            
+            var generalProperties = await api.GetGeneralProperties(hashes.SingleOrDefault());
+
+            Assert.True(generalProperties.TimeElapsed > 0);
 
             await api.DeletePermanently(hashes);
         }
@@ -203,19 +204,18 @@ namespace qBittorrent.qBittorrentApi.Test
         {
             var api = new Api(_serverCredential);
 
-            var initialTorrents = await api.GetTorrents();
-
-            var uris = new List<Uri>
+            var uris = new[]
             {
                 new Uri("magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
+            };
+            var hashes = new[]
+            {
+                "cd8158937344b2a066446bed7e7a0c45214f1245"
             };
 
             await api.DownloadFromUrls(uris);
 
-            var hashes = new List<string>
-            {
-                "cd8158937344b2a066446bed7e7a0c45214f1245"
-            };
+            await api.WaitForTorrentToStart(hashes.FirstOrDefault());
 
             var trackersPropertieses = await api.GetTrackersProperties(hashes.SingleOrDefault());
 

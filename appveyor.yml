@@ -2,6 +2,9 @@ init:
   - git config --global core.autocrlf true
   - cmd: rd /s /q %CHOCOLATEYINSTALL%
   - ps: iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+  - cmd: mkdir %APPDATA%\qBittorrent
+  - cmd: copy /y %APPVEYOR_BUILD_FOLDER%\ci\qBittorrent.ini %APPDATA%\qBittorrent\
+  - cmd: "%PROGRAMFILES(X86)%\qBittorrent\qBittorrent.exe"
 build_script:
   - cinst qbittorrent -y
   - build.cmd --quiet verify

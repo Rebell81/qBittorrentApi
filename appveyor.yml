@@ -1,3 +1,5 @@
+os: unstable
+
 init:
   - git config --global core.autocrlf true
   - cmd: rd /s /q %CHOCOLATEYINSTALL%

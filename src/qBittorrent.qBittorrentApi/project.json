@@ -22,6 +22,7 @@
   "frameworks": {
     "dotnet": {
       "imports": "portable-net452+win81"
-    }
+    },
+    "dnxcore50": {}
   }
 }

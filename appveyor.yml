@@ -3,14 +3,12 @@ os: Unstable
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   - git config --global core.autocrlf true
-  - cmd: rd /s /q %CHOCOLATEYINSTALL%
-  - ps: iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
-
-build_script:
   - cinst qbittorrent -y
   - cmd: mkdir %APPDATA%\qBittorrent
   - cmd: copy /y %APPVEYOR_BUILD_FOLDER%\ci\qBittorrent.ini %APPDATA%\qBittorrent\
-  - ci\qbittorrent.bat
+  - cmd /c start ci\qbittorrent.bat
+
+build_script:
   - build.cmd --quiet verify
 clone_depth: 1
 test: off

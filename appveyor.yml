@@ -3,6 +3,8 @@ os: Unstable
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   - git config --global core.autocrlf true
+  
+install:
   - cinst qbittorrent -y
   - cmd: mkdir %APPDATA%\qBittorrent
   - cmd: copy /y %APPVEYOR_BUILD_FOLDER%\ci\qBittorrent.ini %APPDATA%\qBittorrent\

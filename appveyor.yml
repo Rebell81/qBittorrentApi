@@ -8,7 +8,7 @@ install:
   - cinst qbittorrent -y
   - cmd: mkdir %APPDATA%\qBittorrent
   - cmd: copy /y %APPVEYOR_BUILD_FOLDER%\ci\qBittorrent.ini %APPDATA%\qBittorrent\
-  - cmd /c start ci\qbittorrent.bat
+  - ps: Start-Process -FilePath "ci\qbittorrent.bat"
 
 build_script:
   - build.cmd --quiet verify

@@ -102,7 +102,7 @@ namespace qBittorrent.qBittorrentApi.Test
         }
 
         [Fact]
-        public async Task TestDeleteAndDownload()
+        public async Task TestDownloadFromUrls()
         {
             var api = new Api(_serverCredential);
 
@@ -120,9 +120,6 @@ namespace qBittorrent.qBittorrentApi.Test
                 "e508e5f1c7ad6650eb41d38f29aa567923b3934f"
             };
 
-            // Cleanup
-            await api.DeletePermanently(hashes);
-
             var initialCount = (await api.GetTorrents()).Count;
 
             await api.DownloadFromUrls(uris);
@@ -137,7 +134,7 @@ namespace qBittorrent.qBittorrentApi.Test
         }
 
         [Fact]
-        public async Task TestDeleteAndUpload()
+        public async Task TestUploadStreams()
         {
             var api = new Api(_serverCredential);
 
@@ -154,6 +151,9 @@ namespace qBittorrent.qBittorrentApi.Test
             };
 
             await api.Upload(streams);
+
+            await api.WaitForTorrentToStartByName("ubuntu-15.04-desktop-amd64.iso");
+            await api.WaitForTorrentToStartByName("ubuntu-15.04-desktop-i386.iso");
 
             var afterUploadTorrents = await api.GetTorrents();
 
@@ -189,7 +189,7 @@ namespace qBittorrent.qBittorrentApi.Test
 
             await api.DownloadFromUrls(uris);
 
-            await api.WaitForTorrentToStart(hashes.FirstOrDefault());
+            await api.WaitForTorrentToStartByHash(hashes.FirstOrDefault());
 
             var generalProperties = await api.GetGeneralProperties(hashes.SingleOrDefault());
 
@@ -215,7 +215,7 @@ namespace qBittorrent.qBittorrentApi.Test
 
             await api.DownloadFromUrls(uris);
 
-            await api.WaitForTorrentToStart(hashes.FirstOrDefault());
+            await api.WaitForTorrentToStartByHash(hashes.FirstOrDefault());
 
             var trackersPropertieses = await api.GetTrackersProperties(hashes.SingleOrDefault());
 

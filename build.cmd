@@ -3,7 +3,7 @@ cd %~dp0
 
 SETLOCAL
 SET CACHED_NUGET=%LocalAppData%\NuGet\NuGet.exe
-SET BUILDCMD_DNX_VERSION="1.0.0-beta7"
+SET BUILDCMD_DNX_VERSION="1.0.0-rc1-final"
 SET DNX_FEED=https://www.nuget.org/api/v2
 
 IF EXIST %CACHED_NUGET% goto copynuget

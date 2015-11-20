@@ -10,11 +10,10 @@
   "projectUrl": "https://github.com/rbarbe/qBittorrentApi",
   "licenseUrl": "https://raw.githubusercontent.com/rbarbe/qBittorrentApi/master/LICENSE",
   "dependencies": {
-    "Microsoft.Framework.Configuration": "1.0.0-beta7",
-    "Microsoft.Framework.Configuration.Json": "1.0.0-beta7",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0-*",
     "qBittorrent.qBittorrentApi": "0.0.3",
-    "xunit": "2.1.0-rc1-build3168",
-    "xunit.runner.dnx": "2.1.0-beta5-build169"
+    "xunit": "2.1.0-*",
+    "xunit.runner.dnx": "2.1.0-*"
   },
   "commands": {
     "test": "xunit.runner.dnx -parallel none"

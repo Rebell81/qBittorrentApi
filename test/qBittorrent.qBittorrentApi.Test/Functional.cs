@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security;
 using System.Threading.Tasks;
-using Microsoft.Framework.Configuration;
+using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace qBittorrent.qBittorrentApi.Test
@@ -14,7 +14,7 @@ namespace qBittorrent.qBittorrentApi.Test
 
         public Functional()
         {
-            var builder = new ConfigurationBuilder(".");
+            var builder = new ConfigurationBuilder();
             builder.AddJsonFile("config.json");
             builder.AddJsonFile("config.private.json", true);
             var configuration = builder.Build();

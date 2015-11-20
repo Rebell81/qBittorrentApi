@@ -10,19 +10,11 @@
   "tags": [ "" ],
   "projectUrl": "https://github.com/rbarbe/qBittorrentApi",
   "licenseUrl": "https://raw.githubusercontent.com/rbarbe/qBittorrentApi/master/LICENSE",
-  "supports": {
-    "net46.app": {},
-    "uwp.10.0.app": { },
-    "dnxcore50.app": {}
-  },
   "dependencies": {
     "Newtonsoft.Json": "7.0.1",
     "System.Net.Http": "4.0.0"
   },
   "frameworks": {
-    "dotnet": {
-      "imports": "portable-net452+win81"
-    },
-    "dnxcore50": {}
+    "dotnet5.1": {}
   }
 }

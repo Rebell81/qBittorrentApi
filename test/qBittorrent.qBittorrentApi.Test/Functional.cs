@@ -78,7 +78,11 @@ namespace qBittorrent.qBittorrentApi.Test
 
             var torrents = await api.GetTorrents();
 
-            Assert.Equal(0, torrents.Count);
+            Assert.NotNull(torrents);
+            if (torrents.Any())
+            {
+                Assert.True(!string.IsNullOrWhiteSpace(torrents.First().Hash));
+            }
         }
 
         [Fact]

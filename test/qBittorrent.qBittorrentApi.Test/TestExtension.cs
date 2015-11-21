@@ -7,7 +7,8 @@ namespace qBittorrent.qBittorrentApi.Test
 {
     public static class TestExtension
     {
-        public static async Task WaitForTorrentToStartByHash(this Api api, string hash, int numberOfTry = 20, int delay = 400)
+        public static async Task WaitForTorrentToStartByHash(this Api api, string hash, int numberOfTry = 20,
+            int delay = 400)
         {
             var torrentStarted = false;
             for (var i = 0; i < numberOfTry; i++)
@@ -27,7 +28,8 @@ namespace qBittorrent.qBittorrentApi.Test
             }
         }
 
-        public static async Task WaitForTorrentToStartByName(this Api api, string name, int numberOfTry = 20, int delay = 400)
+        public static async Task WaitForTorrentToStartByName(this Api api, string name, int numberOfTry = 20,
+            int delay = 400)
         {
             var torrentStarted = false;
             for (var i = 0; i < numberOfTry; i++)

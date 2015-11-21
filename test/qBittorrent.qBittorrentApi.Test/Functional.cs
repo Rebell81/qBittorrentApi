@@ -50,7 +50,7 @@ namespace qBittorrent.qBittorrentApi.Test
             var api = new Api(_serverCredential);
             var apiVersion = await api.GetApiVersion();
 
-            Assert.Equal(4, apiVersion);
+            Assert.Equal(5, apiVersion);
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace qBittorrent.qBittorrentApi.Test
             var api = new Api(_serverCredential);
             var qBittorrentVersion = await api.GetQBittorrentVersion();
 
-            Assert.Equal("v3.2.3", qBittorrentVersion);
+            Assert.Equal("v3.2.5", qBittorrentVersion);
         }
 
         [Fact]

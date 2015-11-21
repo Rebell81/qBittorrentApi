@@ -16,7 +16,8 @@
   "frameworks": {
     "dotnet5.1": {
       "dependencies": {
-        "System.Net.Http" : "4.0.0"
+        "System.Runtime": "4.0.0",
+        "System.Net.Http": "4.0.0"
       }
     },
     "dnxcore50": {

@@ -11,7 +11,7 @@
   "licenseUrl": "https://raw.githubusercontent.com/rbarbe/qBittorrentApi/master/LICENSE",
   "dependencies": {
     "Microsoft.Extensions.Configuration.Json": "1.0.0-*",
-    "qBittorrent.qBittorrentApi": "0.0.3",
+    "qBittorrent.qBittorrentApi": "0.0.4",
     "xunit": "2.1.0-*",
     "xunit.runner.dnx": "2.1.0-*"
   },

@@ -125,16 +125,16 @@ namespace qBittorrent.qBittorrentApi
             return httpResponseMessage.IsSuccessStatusCode;
         }
 
-        public async Task<bool> Upload(IList<Stream> streams)
+        public async Task<bool> Upload(byte[][] torrents)
         {
             await CheckAuthentification();
 
             using (var content = new MultipartFormDataContent("Upload----" + DateTime.Now))
             {
-                foreach (var stream in streams)
+                foreach (var torrent in torrents)
                 {
                     var guid = Guid.NewGuid().ToString();
-                    content.Add(new StreamContent(stream), guid, guid);
+                    content.Add(new ByteArrayContent(torrent), guid, guid);
                 }
 
                 var uriUpload = new Uri("/command/upload", UriKind.Relative);

@@ -92,7 +92,11 @@ namespace qBittorrent.qBittorrentApi.Test
 
             var torrents = await api.GetTorrents(Filter.Completed);
 
-            Assert.Equal(0, torrents.Count);
+            Assert.NotNull(torrents);
+            if (torrents.Any())
+            {
+                Assert.True(!string.IsNullOrWhiteSpace(torrents.First().Hash));
+            }
         }
 
         [Fact]
@@ -138,37 +142,37 @@ namespace qBittorrent.qBittorrentApi.Test
         }
 
         [Fact]
-        public async Task TestUploadStreams()
+        public async Task TestUpload()
         {
             var api = new Api(_serverCredential);
 
             var initialTorrents = await api.GetTorrents();
 
-            var streams = new[]
+            var bytes = new[]
             {
                 await
-                    new HttpClient().GetStreamAsync(
+                    new HttpClient().GetByteArrayAsync(
                         new Uri("http://releases.ubuntu.com/15.04/ubuntu-15.04-desktop-amd64.iso.torrent")),
                 await
-                    new HttpClient().GetStreamAsync(
+                    new HttpClient().GetByteArrayAsync(
                         new Uri("http://releases.ubuntu.com/15.04/ubuntu-15.04-desktop-i386.iso.torrent"))
             };
 
-            await api.Upload(streams);
+            await api.Upload(bytes);
 
             await api.WaitForTorrentToStartByName("ubuntu-15.04-desktop-amd64.iso");
             await api.WaitForTorrentToStartByName("ubuntu-15.04-desktop-i386.iso");
 
             var afterUploadTorrents = await api.GetTorrents();
 
-            Assert.Equal(initialTorrents.Count + streams.Length, afterUploadTorrents.Count);
+            Assert.Equal(initialTorrents.Count + bytes.Length, afterUploadTorrents.Count);
 
             var hashList =
                 afterUploadTorrents.Select(t => t.Hash)
                     .ToList()
                     .Except(initialTorrents.Select(t => t.Hash).ToList())
                     .ToList();
-            Assert.Equal(streams.Length, hashList.Count());
+            Assert.Equal(bytes.Length, hashList.Count());
 
             await api.DeletePermanently(hashList);
             var afterDeleteTorrents = await api.GetTorrents();

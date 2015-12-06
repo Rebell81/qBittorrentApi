@@ -5,7 +5,7 @@ init:
   - git config --global core.autocrlf true
   
 install:
-  - cinst qbittorrent -y
+  - cinst qbittorrent -version 3.2.5 -y
   - cmd: mkdir %APPDATA%\qBittorrent
   - cmd: copy /y %APPVEYOR_BUILD_FOLDER%\ci\qBittorrent.ini %APPDATA%\qBittorrent\
   - ps: Start-Process -FilePath "ci\qbittorrent.bat"

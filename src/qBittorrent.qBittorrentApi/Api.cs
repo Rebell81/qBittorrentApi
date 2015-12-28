@@ -62,9 +62,10 @@ namespace qBittorrent.qBittorrentApi
             return int.Parse(await _httpClient.GetStringAsync(new Uri("/version/api_min", UriKind.Relative)));
         }
 
-        public async Task<string> GetQBittorrentVersion()
+        public async Task<Version> GetQBittorrentVersion()
         {
-            return await _httpClient.GetStringAsync(new Uri("/version/qbittorrent", UriKind.Relative));
+            var versionStr = await _httpClient.GetStringAsync(new Uri("/version/qbittorrent", UriKind.Relative));
+            return Version.Parse(versionStr);
         }
 
         public async Task<IList<Torrent>> GetTorrents(Filter filter = Filter.All, string label = null)

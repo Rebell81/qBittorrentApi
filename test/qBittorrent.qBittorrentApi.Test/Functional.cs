@@ -50,7 +50,7 @@ namespace qBittorrent.qBittorrentApi.Test
             var api = new Api(_serverCredential);
             var apiVersion = await api.GetApiVersion();
 
-            Assert.Equal(5, apiVersion);
+            Assert.Equal(7, apiVersion);
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace qBittorrent.qBittorrentApi.Test
             var api = new Api(_serverCredential);
             var qBittorrentVersion = await api.GetQBittorrentVersion();
 
-            Assert.Equal("v3.2.5", qBittorrentVersion);
+            Assert.Equal("v3.3.1", qBittorrentVersion);
         }
 
         [Fact]
@@ -201,7 +201,7 @@ namespace qBittorrent.qBittorrentApi.Test
 
             var generalProperties = await api.GetGeneralProperties(hashes.SingleOrDefault());
 
-            Assert.True(generalProperties.TimeElapsed > 0);
+            Assert.True(generalProperties.TimeElapsed >= 0);
 
             await api.DeletePermanently(hashes);
         }

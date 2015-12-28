@@ -7,6 +7,7 @@ namespace qBittorrent.qBittorrentApi
         [JsonProperty("comment")]
         public string Comment { get; set; }
 
+        // TODO : Unix time
         [JsonProperty("creation_date")]
         public int CreationDate { get; set; }
 
@@ -51,5 +52,56 @@ namespace qBittorrent.qBittorrentApi
 
         [JsonProperty("up_limit")]
         public int UpLimit { get; set; }
+
+        [JsonProperty("addition_date")]
+        public int AdditionDate { get; set; }
+
+        [JsonProperty("completion_date")]
+        public int CompletionDate { get; set; }
+
+        [JsonProperty("created_by")]
+        public string CreatedBy { get; set; }
+
+        [JsonProperty("dl_speed")]
+        public int DlSpeed { get; set; }
+
+        [JsonProperty("dl_speed_avg")]
+        public int DlSpeedAvg { get; set; }
+
+        [JsonProperty("eta")]
+        public int Eta { get; set; }
+
+        [JsonProperty("last_seen")]
+        public int LastSeen { get; set; }
+
+        [JsonProperty("peers")]
+        public int Peers { get; set; }
+
+        [JsonProperty("peers_total")]
+        public int PeersTotal { get; set; }
+
+        [JsonProperty("pieces_have")]
+        public int PiecesHave { get; set; }
+
+        [JsonProperty("pieces_num")]
+        public int PiecesNum { get; set; }
+
+        [JsonProperty("reannounce")]
+        public int Reannounce { get; set; }
+
+        [JsonProperty("seeds")]
+        public int Seeds { get; set; }
+
+        [JsonProperty("seeds_total")]
+        public int SeedsTotal { get; set; }
+
+        [JsonProperty("total_size")]
+        public int TotalSize { get; set; }
+
+        [JsonProperty("up_speed")]
+        public int UpSpeed { get; set; }
+
+        [JsonProperty("up_speed_avg")]
+        public int UpSpeedAvg { get; set; }
     }
 }

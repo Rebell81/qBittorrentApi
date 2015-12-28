@@ -164,5 +164,15 @@ namespace qBittorrent.qBittorrentApi
 
             return httpResponseMessage.IsSuccessStatusCode;
         }
+
+        public async Task<bool> Shutdown()
+        {
+            await CheckAuthentification();
+
+            var uriShutdown = new Uri("/command/shutdown", UriKind.Relative);
+            var httpResponseMessage = await _httpClient.GetAsync(uriShutdown);
+
+            return httpResponseMessage.IsSuccessStatusCode;
+        }
     }
 }

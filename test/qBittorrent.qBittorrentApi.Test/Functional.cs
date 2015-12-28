@@ -44,6 +44,15 @@ namespace qBittorrent.qBittorrentApi.Test
             });
         }
 
+        //[Fact]
+        //public async Task Shutdown()
+        //{
+        //    var api = new Api(_serverCredential);
+        //    var result = await api.Shutdown();
+
+        //    Assert.True(result);
+        //}
+
         [Fact]
         public async Task GetApiVersion()
         {

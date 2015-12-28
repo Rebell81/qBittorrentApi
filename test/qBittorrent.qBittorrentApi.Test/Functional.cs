@@ -218,7 +218,7 @@ namespace qBittorrent.qBittorrentApi.Test
         }
 
         [Fact]
-        public async Task TestGetTrackersProperties()
+        public async Task TestGetProperties()
         {
             var api = new Api(_serverCredential);
 
@@ -240,6 +240,11 @@ namespace qBittorrent.qBittorrentApi.Test
 
             Assert.True(trackersPropertieses.Any(p => p.Url.Contains("http://bttracker.debian.org:6969/announce")));
 
+            var filesPropertieses = await api.GetFilesProperties(hashes.SingleOrDefault());
+            var file = filesPropertieses.Single();
+            Assert.Equal("debian-8.2.0-amd64-DVD-1.iso", file.Name);
+            Assert.Equal(3992977408, file.Size);
+            
             await api.DeletePermanently(hashes);
         }
     }

@@ -181,5 +181,15 @@ namespace qBittorrent.qBittorrentApi
 
             return httpResponseMessage.IsSuccessStatusCode;
         }
+
+        public async Task<TransferInfo> GetTransferInfo()
+        {
+            await CheckAuthentification();
+
+            var uriTransferInfo = new Uri("/query/transferInfo", UriKind.Relative);
+            var jsonStr = await _httpClient.GetStringAsync(uriTransferInfo);
+
+            return JsonConvert.DeserializeObject<TransferInfo>(jsonStr);
+        }
     }
 }

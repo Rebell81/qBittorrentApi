@@ -244,7 +244,10 @@ namespace qBittorrent.qBittorrentApi.Test
             var file = filesPropertieses.Single();
             Assert.Equal("debian-8.2.0-amd64-DVD-1.iso", file.Name);
             Assert.Equal(3992977408, file.Size);
-            
+
+            var transferInfo = await api.GetTransferInfo();
+            Assert.True(transferInfo.DhtNodes > 0);
+
             await api.DeletePermanently(hashes);
         }
     }

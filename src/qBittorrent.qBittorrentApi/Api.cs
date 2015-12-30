@@ -172,6 +172,30 @@ namespace qBittorrent.qBittorrentApi
             return httpResponseMessage.IsSuccessStatusCode;
         }
 
+        public async Task<bool> SetLabel(IList<string> hashes, string label)
+        {
+            await CheckAuthentification();
+
+            var stringBuilder = new StringBuilder();
+
+            foreach (var hash in hashes)
+            {
+                stringBuilder.Append(hash);
+                stringBuilder.Append('|');
+            }
+
+            HttpContent bodyContent = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("hashes", stringBuilder.ToString()),
+                new KeyValuePair<string, string>("label", label)
+            });
+
+            var uriSetLabel = new Uri("/command/setLabel", UriKind.Relative);
+            var httpResponseMessage = await _httpClient.PostAsync(uriSetLabel, bodyContent);
+
+            return httpResponseMessage.IsSuccessStatusCode;
+        }
+
         public async Task<bool> Shutdown()
         {
             await CheckAuthentification();

@@ -185,6 +185,8 @@ namespace qBittorrent.qBittorrentApi.Test
                     .ToList();
             Assert.Equal(bytes.Length, hashList.Count());
 
+            var setLabelResult = await api.SetLabel(hashList, "ubuntu");
+
             await api.DeletePermanently(hashList);
             var afterDeleteTorrents = await api.GetTorrents();
 
@@ -246,7 +248,9 @@ namespace qBittorrent.qBittorrentApi.Test
             Assert.Equal(3992977408, file.Size);
 
             var transferInfo = await api.GetTransferInfo();
-            Assert.True(transferInfo.DhtNodes > 0);
+            Assert.True(transferInfo.DhtNodes >= 0);
+
+            var setLabelResult = await api.SetLabel(hashes, "linux-distro");
 
             await api.DeletePermanently(hashes);
         }

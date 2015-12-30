@@ -251,6 +251,10 @@ namespace qBittorrent.qBittorrentApi.Test
             Assert.True(transferInfo.DhtNodes >= 0);
 
             var setLabelResult = await api.SetLabel(hashes, "linux-distro");
+            Assert.True(transferInfo.DhtNodes >= 0);
+
+            var recheckResult = await api.Recheck(hashes.SingleOrDefault());
+            Assert.True(recheckResult);
 
             await api.DeletePermanently(hashes);
         }

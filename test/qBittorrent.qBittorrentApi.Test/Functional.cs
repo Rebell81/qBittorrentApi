@@ -256,6 +256,9 @@ namespace qBittorrent.qBittorrentApi.Test
             var recheckResult = await api.Recheck(hashes.SingleOrDefault());
             Assert.True(recheckResult);
 
+            var addTrackerResult = await api.AddTrackers(hashes.SingleOrDefault(), new[] { new Uri("http://test1/"), new Uri("http://test2/") });
+            Assert.True(addTrackerResult);
+
             await api.DeletePermanently(hashes);
         }
     }

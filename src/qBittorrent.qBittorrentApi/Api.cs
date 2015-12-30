@@ -211,6 +211,30 @@ namespace qBittorrent.qBittorrentApi
             return httpResponseMessage.IsSuccessStatusCode;
         }
 
+        public async Task<bool> AddTrackers(string hash, IList<Uri> trackers)
+        {
+            await CheckAuthentification();
+
+            var stringBuilder = new StringBuilder();
+
+            foreach (var tracker in trackers)
+            {
+                stringBuilder.Append(tracker);
+                stringBuilder.Append('\n');
+            }
+
+            HttpContent bodyContent = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("hash", hash),
+                new KeyValuePair<string, string>("urls", stringBuilder.ToString())
+            });
+
+            var uriAddTrackers = new Uri("/command/addTrackers", UriKind.Relative);
+            var httpResponseMessage = await _httpClient.PostAsync(uriAddTrackers, bodyContent);
+
+            return httpResponseMessage.IsSuccessStatusCode;
+        }
+
         public async Task<bool> Shutdown()
         {
             await CheckAuthentification();

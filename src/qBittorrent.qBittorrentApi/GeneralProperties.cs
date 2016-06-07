@@ -96,7 +96,7 @@ namespace qBittorrent.qBittorrentApi
         public int SeedsTotal { get; set; }
 
         [JsonProperty("total_size")]
-        public int TotalSize { get; set; }
+        public double TotalSize { get; set; }
 
         [JsonProperty("up_speed")]
         public int UpSpeed { get; set; }

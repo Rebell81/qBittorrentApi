@@ -1,25 +1,35 @@
 {
   "version": "1.0.0-*",
+  "testRunner": "xunit",
   "description": "qBittorrent.qBittorrentApi.Test test project",
   "authors": [ "rbarbe" ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/rbarbe/qBittorrentApi"
+  "packOptions": {
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/rbarbe/qBittorrentApi"
+    },
+    "tags": [ "" ],
+    "projectUrl": "https://github.com/rbarbe/qBittorrentApi",
+    "licenseUrl": "https://raw.githubusercontent.com/rbarbe/qBittorrentApi/master/LICENSE"
   },
-  "tags": [ "" ],
-  "projectUrl": "https://github.com/rbarbe/qBittorrentApi",
-  "licenseUrl": "https://raw.githubusercontent.com/rbarbe/qBittorrentApi/master/LICENSE",
   "dependencies": {
-    "Microsoft.Extensions.Configuration.Json": "1.0.0-*",
-    "qBittorrent.qBittorrentApi": "0.0.5",
-    "xunit": "2.1.0-*",
-    "xunit.runner.dnx": "2.1.0-*"
+    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc2-*",
+    "qBittorrent.qBittorrentApi": "0.0.6",
+    "xunit": "2.1.0",
+    "dotnet-test-xunit": "1.0.0-rc2-*"
   },
-  "commands": {
-    "test": "xunit.runner.dnx -parallel none"
-  },
-
   "frameworks": {
-    "dnxcore50" : { }
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0-rc2-*"
+        }
+      },
+      "imports": [
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
+    }
   }
 }

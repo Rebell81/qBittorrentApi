@@ -12,7 +12,7 @@ namespace qBittorrent.qBittorrentApi
         public int DhtNodes { get; set; }
 
         [JsonProperty("dl_info_data")]
-        public int DlInfoData { get; set; }
+        public double DlInfoData { get; set; }
 
         [JsonProperty("dl_info_speed")]
         public int DlInfoSpeed { get; set; }

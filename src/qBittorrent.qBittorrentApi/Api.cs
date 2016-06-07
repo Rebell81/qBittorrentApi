@@ -235,6 +235,21 @@ namespace qBittorrent.qBittorrentApi
             return httpResponseMessage.IsSuccessStatusCode;
         }
 
+        public async Task<bool> Resume(string hash)
+        {
+            await CheckAuthentification();
+
+            HttpContent bodyContent = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("hash", hash),
+            });
+
+            var uriSetLabel = new Uri("/command/resume", UriKind.Relative);
+            var httpResponseMessage = await _httpClient.PostAsync(uriSetLabel, bodyContent);
+
+            return httpResponseMessage.IsSuccessStatusCode;
+        }
+
         public async Task<bool> Shutdown()
         {
             await CheckAuthentification();

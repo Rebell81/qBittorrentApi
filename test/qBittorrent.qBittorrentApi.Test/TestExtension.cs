@@ -14,7 +14,7 @@ namespace qBittorrent.qBittorrentApi.Test
             for (var i = 0; i < numberOfTry; i++)
             {
                 var torrents = await api.GetTorrents();
-                if (torrents.SingleOrDefault(t => t.Hash == hash)?.State != "stalledDL")
+                if (torrents.SingleOrDefault(t => t.Hash == hash)?.State == "downloading")
                 {
                     torrentStarted = true;
                     break;
@@ -23,6 +23,26 @@ namespace qBittorrent.qBittorrentApi.Test
                 Thread.Sleep(delay);
             }
             if (!torrentStarted)
+            {
+                throw new TimeoutException();
+            }
+        }
+
+        public static async Task WaitForTorrentToBePausedByHash(this Api api, string hash, int numberOfTry = 20, int delay = 400)
+        {
+            var torrentPaused = false;
+            for (var i = 0; i < numberOfTry; i++)
+            {
+                var torrents = await api.GetTorrents();
+                if (torrents.SingleOrDefault(t => t.Hash == hash)?.State == "pausedDL")
+                {
+                    torrentPaused = true;
+                    break;
+                }
+
+                Thread.Sleep(delay);
+            }
+            if (!torrentPaused)
             {
                 throw new TimeoutException();
             }

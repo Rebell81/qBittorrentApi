@@ -5,6 +5,9 @@ using System.Security;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Xunit;
+using System.IO;
+
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
 
 namespace qBittorrent.qBittorrentApi.Test
 {
@@ -14,7 +17,7 @@ namespace qBittorrent.qBittorrentApi.Test
 
         public Functional()
         {
-            var builder = new ConfigurationBuilder();
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
             builder.AddJsonFile("config.json");
             builder.AddJsonFile("config.private.json", true);
             var configuration = builder.Build();
@@ -59,7 +62,7 @@ namespace qBittorrent.qBittorrentApi.Test
             var api = new Api(_serverCredential);
             var apiVersion = await api.GetApiVersion();
 
-            Assert.Equal(7, apiVersion);
+            Assert.Equal(9, apiVersion);
         }
 
         [Fact]
@@ -68,7 +71,7 @@ namespace qBittorrent.qBittorrentApi.Test
             var api = new Api(_serverCredential);
             var apiMinVersion = await api.GetApiMinVersion();
 
-            Assert.Equal(2, apiMinVersion);
+            Assert.Equal(8, apiMinVersion);
         }
 
         [Fact]
@@ -79,7 +82,7 @@ namespace qBittorrent.qBittorrentApi.Test
 
             Assert.Equal(3, qBittorrentVersion.Major);
             Assert.Equal(3, qBittorrentVersion.Minor);
-            Assert.Equal(1, qBittorrentVersion.Patch);
+            Assert.Equal(4, qBittorrentVersion.Patch);
         }
 
         [Fact]
@@ -143,6 +146,13 @@ namespace qBittorrent.qBittorrentApi.Test
 
             await api.DownloadFromUrls(uris);
 
+            foreach(var hash in hashes)
+            {
+                await api.WaitForTorrentToBePausedByHash(hash);
+                await api.Resume(hash);
+                await api.WaitForTorrentToStartByHash(hash);
+            }
+
             var after2AddCount = (await api.GetTorrents()).Count;
             Assert.Equal(initialCount + 2, after2AddCount);
 
@@ -163,16 +173,16 @@ namespace qBittorrent.qBittorrentApi.Test
             {
                 await
                     new HttpClient().GetByteArrayAsync(
-                        new Uri("http://releases.ubuntu.com/15.04/ubuntu-15.04-desktop-amd64.iso.torrent")),
+                        new Uri("http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-amd64.iso.torrent")),
                 await
                     new HttpClient().GetByteArrayAsync(
-                        new Uri("http://releases.ubuntu.com/15.04/ubuntu-15.04-desktop-i386.iso.torrent"))
+                        new Uri("http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-i386.iso.torrent"))
             };
 
             await api.Upload(bytes);
 
-            await api.WaitForTorrentToStartByName("ubuntu-15.04-desktop-amd64.iso");
-            await api.WaitForTorrentToStartByName("ubuntu-15.04-desktop-i386.iso");
+            await api.WaitForTorrentToStartByName("ubuntu-16.04-desktop-amd64.iso");
+            await api.WaitForTorrentToStartByName("ubuntu-16.04-desktop-i386.iso");
 
             var afterUploadTorrents = await api.GetTorrents();
 
@@ -210,6 +220,10 @@ namespace qBittorrent.qBittorrentApi.Test
 
             await api.DownloadFromUrls(uris);
 
+            await api.WaitForTorrentToBePausedByHash(hashes.FirstOrDefault());
+
+            await api.Resume(hashes.FirstOrDefault());
+
             await api.WaitForTorrentToStartByHash(hashes.FirstOrDefault());
 
             var generalProperties = await api.GetGeneralProperties(hashes.SingleOrDefault());
@@ -235,6 +249,10 @@ namespace qBittorrent.qBittorrentApi.Test
             };
 
             await api.DownloadFromUrls(uris);
+
+            await api.WaitForTorrentToBePausedByHash(hashes.FirstOrDefault());
+
+            await api.Resume(hashes.FirstOrDefault());
 
             await api.WaitForTorrentToStartByHash(hashes.FirstOrDefault());
 

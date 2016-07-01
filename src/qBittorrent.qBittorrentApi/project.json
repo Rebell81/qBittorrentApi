@@ -1,5 +1,5 @@
 {
-  "version": "0.0.6-*",
+  "version": "0.0.7-*",
   "title": "qBittorrent Web Api Client",
   "description": "Http Client for the qBittorrent Web Api using System.Net.Http",
   "authors": [ "rbarbe" ],
@@ -13,11 +13,11 @@
     "licenseUrl": "https://raw.githubusercontent.com/rbarbe/qBittorrentApi/master/LICENSE"
   },
   "dependencies": {
-    "Newtonsoft.Json": "8.0.3",
-    "System.Net.Http": "4.0.0"
+    "Newtonsoft.Json": "9.0.1",
+    "System.Net.Http": "4.1.0"
   },
   "frameworks": {
-    "netstandard1.5": {
+    "netstandard1.0": {
       "imports": "dnxcore50"
     }
   }

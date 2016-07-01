@@ -62,7 +62,7 @@ namespace qBittorrent.qBittorrentApi.Test
             var api = new Api(_serverCredential);
             var apiVersion = await api.GetApiVersion();
 
-            Assert.Equal(9, apiVersion);
+            Assert.True(10 <= apiVersion);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace qBittorrent.qBittorrentApi.Test
             var api = new Api(_serverCredential);
             var apiMinVersion = await api.GetApiMinVersion();
 
-            Assert.Equal(8, apiMinVersion);
+            Assert.True(10 <= apiMinVersion);
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace qBittorrent.qBittorrentApi.Test
 
             Assert.Equal(3, qBittorrentVersion.Major);
             Assert.Equal(3, qBittorrentVersion.Minor);
-            Assert.Equal(4, qBittorrentVersion.Patch);
+            Assert.True(5 <= qBittorrentVersion.Patch);
         }
 
         [Fact]

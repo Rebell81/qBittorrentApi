@@ -148,8 +148,8 @@ namespace qBittorrent.qBittorrentApi.Test
 
             foreach(var hash in hashes)
             {
-                await api.WaitForTorrentToBePausedByHash(hash);
-                await api.Resume(hash);
+                //await api.WaitForTorrentToBePausedByHash(hash);
+                //await api.Resume(hash);
                 await api.WaitForTorrentToStartByHash(hash);
             }
 
@@ -250,9 +250,9 @@ namespace qBittorrent.qBittorrentApi.Test
 
             await api.DownloadFromUrls(uris);
 
-            await api.WaitForTorrentToBePausedByHash(hashes.FirstOrDefault());
+            //await api.WaitForTorrentToBePausedByHash(hashes.FirstOrDefault());
 
-            await api.Resume(hashes.FirstOrDefault());
+            //await api.Resume(hashes.FirstOrDefault());
 
             await api.WaitForTorrentToStartByHash(hashes.FirstOrDefault());
 

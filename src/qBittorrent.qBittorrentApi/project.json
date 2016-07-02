@@ -1,5 +1,5 @@
 {
-  "version": "0.0.7-*",
+  "version": "0.0.8-*",
   "title": "qBittorrent Web Api Client",
   "description": "Http Client for the qBittorrent Web Api using System.Net.Http",
   "authors": [ "rbarbe" ],

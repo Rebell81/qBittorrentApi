@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
-    "qBittorrent.qBittorrentApi": "0.0.7",
+    "qBittorrent.qBittorrentApi": "0.0.8",
     "xunit": "2.2.0-beta2-build3300",
     "dotnet-test-xunit": "2.2.0-preview2-build1029"
   },

@@ -114,7 +114,7 @@ namespace qBittorrent.qBittorrentApi.Test
         }
 
         [Fact]
-        public async Task GetTorrentsWithLabel()
+        public async Task GetTorrentsWithCategory()
         {
             var api = new Api(_serverCredential);
 
@@ -195,7 +195,7 @@ namespace qBittorrent.qBittorrentApi.Test
                     .ToList();
             Assert.Equal(bytes.Length, hashList.Count());
 
-            var setLabelResult = await api.SetLabel(hashList, "ubuntu");
+            var setCategoryResult = await api.SetCategory(hashList, "ubuntu");
 
             await api.DeletePermanently(hashList);
             var afterDeleteTorrents = await api.GetTorrents();
@@ -268,7 +268,7 @@ namespace qBittorrent.qBittorrentApi.Test
             var transferInfo = await api.GetTransferInfo();
             Assert.True(transferInfo.DhtNodes >= 0);
 
-            var setLabelResult = await api.SetLabel(hashes, "linux-distro");
+            var setCategoryResult = await api.SetCategory(hashes, "linux-distro");
             Assert.True(transferInfo.DhtNodes >= 0);
 
             var recheckResult = await api.Recheck(hashes.SingleOrDefault());

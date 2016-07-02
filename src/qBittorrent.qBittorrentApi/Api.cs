@@ -68,7 +68,7 @@ namespace qBittorrent.qBittorrentApi
             return Version.Parse(versionStr);
         }
 
-        public async Task<IList<Torrent>> GetTorrents(Filter filter = Filter.All, string label = null)
+        public async Task<IList<Torrent>> GetTorrents(Filter filter = Filter.All, string category = null)
         {
             await CheckAuthentification();
 
@@ -76,9 +76,9 @@ namespace qBittorrent.qBittorrentApi
             keyValuePairs.SetValue(new KeyValuePair<string, string>("filter", filter.ToString().ToLower()), 0);
 
 
-            if (label != null)
+            if (category != null)
             {
-                keyValuePairs.SetValue(new KeyValuePair<string, string>("label", label), 1);
+                keyValuePairs.SetValue(new KeyValuePair<string, string>("category", category), 1);
             }
 
             HttpContent content = new FormUrlEncodedContent(keyValuePairs);
@@ -172,7 +172,7 @@ namespace qBittorrent.qBittorrentApi
             return httpResponseMessage.IsSuccessStatusCode;
         }
 
-        public async Task<bool> SetLabel(IList<string> hashes, string label)
+        public async Task<bool> SetCategory(IList<string> hashes, string category)
         {
             await CheckAuthentification();
 
@@ -187,11 +187,11 @@ namespace qBittorrent.qBittorrentApi
             HttpContent bodyContent = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("hashes", stringBuilder.ToString()),
-                new KeyValuePair<string, string>("label", label)
+                new KeyValuePair<string, string>("category", category)
             });
 
-            var uriSetLabel = new Uri("/command/setLabel", UriKind.Relative);
-            var httpResponseMessage = await _httpClient.PostAsync(uriSetLabel, bodyContent);
+            var uriSetCategory = new Uri("/command/setCategory", UriKind.Relative);
+            var httpResponseMessage = await _httpClient.PostAsync(uriSetCategory, bodyContent);
 
             return httpResponseMessage.IsSuccessStatusCode;
         }
@@ -205,8 +205,8 @@ namespace qBittorrent.qBittorrentApi
                 new KeyValuePair<string, string>("hash", hash),
             });
 
-            var uriSetLabel = new Uri("/command/recheck", UriKind.Relative);
-            var httpResponseMessage = await _httpClient.PostAsync(uriSetLabel, bodyContent);
+            var uriRecheck = new Uri("/command/recheck", UriKind.Relative);
+            var httpResponseMessage = await _httpClient.PostAsync(uriRecheck, bodyContent);
 
             return httpResponseMessage.IsSuccessStatusCode;
         }
@@ -244,8 +244,8 @@ namespace qBittorrent.qBittorrentApi
                 new KeyValuePair<string, string>("hash", hash),
             });
 
-            var uriSetLabel = new Uri("/command/resume", UriKind.Relative);
-            var httpResponseMessage = await _httpClient.PostAsync(uriSetLabel, bodyContent);
+            var uriResume = new Uri("/command/resume", UriKind.Relative);
+            var httpResponseMessage = await _httpClient.PostAsync(uriResume, bodyContent);
 
             return httpResponseMessage.IsSuccessStatusCode;
         }

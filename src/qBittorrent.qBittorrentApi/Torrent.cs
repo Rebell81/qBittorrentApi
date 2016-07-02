@@ -19,8 +19,8 @@ namespace qBittorrent.qBittorrentApi
         [JsonProperty("hash")]
         public string Hash { get; set; }
 
-        [JsonProperty("label")]
-        public string Label { get; set; }
+        [JsonProperty("category")]
+        public string Category { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

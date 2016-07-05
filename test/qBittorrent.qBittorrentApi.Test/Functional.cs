@@ -5,7 +5,6 @@ using System.Security;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Xunit;
-using System.IO;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
@@ -17,7 +16,7 @@ namespace qBittorrent.qBittorrentApi.Test
 
         public Functional()
         {
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
+            var builder = new ConfigurationBuilder();
             builder.AddJsonFile("config.json");
             builder.AddJsonFile("config.private.json", true);
             var configuration = builder.Build();

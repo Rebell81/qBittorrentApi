@@ -5,13 +5,15 @@ init:
   - git config --global core.autocrlf true
   
 install:
-  - cinst qbittorrent -version 3.2.5 -y
+  - cinst qbittorrent -version 3.3.5 -y
   - cmd: mkdir %APPDATA%\qBittorrent
   - cmd: copy /y %APPVEYOR_BUILD_FOLDER%\ci\qBittorrent.ini %APPDATA%\qBittorrent\
   - ps: Start-Process -FilePath "ci\qbittorrent.bat"
 
 build_script:
-  - build.cmd --quiet verify
-clone_depth: 1
-test: off
+  - appveyor-retry dotnet restore -v Minimal
+  - dotnet build "src\qBittorrent.qBittorrentApi"
+  - dotnet pack "src\qBittorrent.qBittorrentApi"
+test_script:
+  - dotnet test "test\qBittorrent.qBittorrentApi.Test"
 deploy: off

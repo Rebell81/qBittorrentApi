@@ -130,15 +130,15 @@ namespace qBittorrent.qBittorrentApi.Test
             var uris = new[]
             {
                 new Uri(
-                    "magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce"),
+                    "magnet:?xt=urn:btih:f092b5fa9f01dee17dd40b75f91b85f46a38227c&dn=debian-9.4.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce"),
                 new Uri(
-                    "magnet:?xt=urn:btih:e508e5f1c7ad6650eb41d38f29aa567923b3934f&dn=debian-8.2.0-amd64-DVD-2.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
+                    "magnet:?xt=urn:btih:c3d5d254eb5ad3970b326461255b0f5551864d37&dn=debian-9.4.0-amd64-DVD-2.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
             };
 
             var hashes = new[]
             {
-                "cd8158937344b2a066446bed7e7a0c45214f1245",
-                "e508e5f1c7ad6650eb41d38f29aa567923b3934f"
+                "f092b5fa9f01dee17dd40b75f91b85f46a38227c",
+                "c3d5d254eb5ad3970b326461255b0f5551864d37"
             };
 
             var initialCount = (await api.GetTorrents()).Count;

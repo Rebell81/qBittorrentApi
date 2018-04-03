@@ -79,9 +79,9 @@ namespace qBittorrent.qBittorrentApi.Test
             var api = new Api(_serverCredential);
             var qBittorrentVersion = await api.GetQBittorrentVersion();
 
-            Assert.Equal(3, qBittorrentVersion.Major);
-            Assert.Equal(3, qBittorrentVersion.Minor);
-            Assert.True(5 <= qBittorrentVersion.Patch);
+            Assert.Equal(4, qBittorrentVersion.Major);
+            Assert.Equal(0, qBittorrentVersion.Minor);
+            Assert.True(4 <= qBittorrentVersion.Patch);
         }
 
         [Fact]
@@ -172,16 +172,16 @@ namespace qBittorrent.qBittorrentApi.Test
             {
                 await
                     new HttpClient().GetByteArrayAsync(
-                        new Uri("http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-amd64.iso.torrent")),
+                        new Uri("http://releases.ubuntu.com/16.04/ubuntu-16.04.4-server-amd64.iso.torrent")),
                 await
                     new HttpClient().GetByteArrayAsync(
-                        new Uri("http://releases.ubuntu.com/16.04/ubuntu-16.04-desktop-i386.iso.torrent"))
+                        new Uri("http://releases.ubuntu.com/16.04/ubuntu-16.04.4-desktop-amd64.iso.torrent"))
             };
 
             await api.Upload(bytes);
 
-            await api.WaitForTorrentToStartByName("ubuntu-16.04-desktop-amd64.iso");
-            await api.WaitForTorrentToStartByName("ubuntu-16.04-desktop-i386.iso");
+            await api.WaitForTorrentToStartByName("ubuntu-16.04.4-server-amd64.iso");
+            await api.WaitForTorrentToStartByName("ubuntu-16.04.4-desktop-amd64.iso");
 
             var afterUploadTorrents = await api.GetTorrents();
 
@@ -210,11 +210,11 @@ namespace qBittorrent.qBittorrentApi.Test
             var uris = new[]
             {
                 new Uri(
-                    "magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
+                    "magnet:?xt=urn:btih:f092b5fa9f01dee17dd40b75f91b85f46a38227c&dn=debian-9.4.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
             };
             var hashes = new[]
             {
-                "cd8158937344b2a066446bed7e7a0c45214f1245"
+                "f092b5fa9f01dee17dd40b75f91b85f46a38227c"
             };
 
             await api.DownloadFromUrls(uris);
@@ -240,11 +240,11 @@ namespace qBittorrent.qBittorrentApi.Test
             var uris = new[]
             {
                 new Uri(
-                    "magnet:?xt=urn:btih:cd8158937344b2a066446bed7e7a0c45214f1245&dn=debian-8.2.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
+                    "magnet:?xt=urn:btih:f092b5fa9f01dee17dd40b75f91b85f46a38227c&dn=debian-9.4.0-amd64-DVD-1.iso&tr=http%3a%2f%2fbttracker.debian.org%3a6969%2fannounce")
             };
             var hashes = new[]
             {
-                "cd8158937344b2a066446bed7e7a0c45214f1245"
+                "f092b5fa9f01dee17dd40b75f91b85f46a38227c"
             };
 
             await api.DownloadFromUrls(uris);
@@ -261,8 +261,8 @@ namespace qBittorrent.qBittorrentApi.Test
 
             var filesPropertieses = await api.GetFilesProperties(hashes.SingleOrDefault());
             var file = filesPropertieses.Single();
-            Assert.Equal("debian-8.2.0-amd64-DVD-1.iso", file.Name);
-            Assert.Equal(3992977408, file.Size);
+            Assert.Equal("debian-9.4.0-amd64-DVD-1.iso", file.Name);
+            Assert.Equal(3977379840, file.Size);
 
             var transferInfo = await api.GetTransferInfo();
             Assert.True(transferInfo.DhtNodes >= 0);

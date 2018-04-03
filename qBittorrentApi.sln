@@ -1,21 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1EF1CA33-9375-4C74-AC25-D843D8A94D0C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{013FE752-0B5E-4B03-AD57-95D62CCD4079}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-		NuGet.Config = NuGet.Config
-	EndProjectSection
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "qBittorrent.qBittorrentApi", "src\qBittorrent.qBittorrentApi\qBittorrent.qBittorrentApi.xproj", "{000B7888-5926-4331-B68C-8952BBE6C581}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E0E11E07-C9CA-46B4-87C6-3E1873742242}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "qBittorrent.qBittorrentApi.Test", "test\qBittorrent.qBittorrentApi.Test\qBittorrent.qBittorrentApi.Test.xproj", "{650A5A85-5956-491E-9312-5E25A27D1108}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qBittorrent.qBittorrentApi", "src\qBittorrent.qBittorrentApi\qBittorrent.qBittorrentApi.csproj", "{000B7888-5926-4331-B68C-8952BBE6C581}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qBittorrent.qBittorrentApi.Test", "test\qBittorrent.qBittorrentApi.Test\qBittorrent.qBittorrentApi.Test.csproj", "{650A5A85-5956-491E-9312-5E25A27D1108}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,5 +32,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{000B7888-5926-4331-B68C-8952BBE6C581} = {1EF1CA33-9375-4C74-AC25-D843D8A94D0C}
 		{650A5A85-5956-491E-9312-5E25A27D1108} = {E0E11E07-C9CA-46B4-87C6-3E1873742242}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8F64B5C-FDB9-4C1E-9310-A7E431B065F9}
 	EndGlobalSection
 EndGlobal

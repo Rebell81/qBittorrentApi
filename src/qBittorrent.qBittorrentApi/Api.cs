@@ -8,17 +8,32 @@ using Newtonsoft.Json;
 
 namespace qBittorrent.qBittorrentApi
 {
+    public static class Prefix
+    {
+        public enum Module { auth, transfer, app }
+        public enum Action { login, info, version, webapiVersion }
+
+        private const string API_PREFIX = "api/v2";
+
+        public static Uri Build(Module module, Action action)
+        {
+            return new Uri($"{API_PREFIX}/{Enum.GetName(typeof(Module), module)}/{Enum.GetName(typeof(Action), action)}", UriKind.Relative);
+        }
+    }
+
     public class Api
     {
         private readonly HttpClient _httpClient;
         private readonly HttpClientHandler _httpClientHandler;
         private readonly ServerCredential _serverCredential;
 
+
+
         public Api(ServerCredential argServerCredential)
         {
             _serverCredential = argServerCredential;
             _httpClientHandler = new HttpClientHandler();
-            _httpClient = new HttpClient(_httpClientHandler) {BaseAddress = _serverCredential.Uri};
+            _httpClient = new HttpClient(_httpClientHandler) { BaseAddress = _serverCredential.Uri };
         }
 
         private bool IsAuthenticated()
@@ -45,28 +60,81 @@ namespace qBittorrent.qBittorrentApi
                 new KeyValuePair<string, string>("password", _serverCredential.Password)
             });
 
-            var uri = new Uri("/login", UriKind.Relative);
+            //var uri = new Uri($"{Prefix.API_PREFIX}{Prefix.AUTH_PREFIX}/login", UriKind.Relative);
+            var uri = Prefix.Build(Prefix.Module.auth, Prefix.Action.login);
 
             await _httpClient.PostAsync(uri, bodyContent);
 
             return IsAuthenticated();
         }
 
+
+        public async Task<TransferInfo> GetTransferInfo()
+        {
+            await CheckAuthentification();
+
+            //var uriTransferInfo = new Uri($"{prefix}/transfer/info", UriKind.Relative);
+            var uriTransferInfo = Prefix.Build(Prefix.Module.transfer, Prefix.Action.info);
+
+            var jsonStr = await _httpClient.GetStringAsync(uriTransferInfo);
+
+            return JsonConvert.DeserializeObject<TransferInfo>(jsonStr);
+        }
+
+
+        public async Task<Version> GetQBittorrentVersion()
+        {
+            var uriTransferInfo = Prefix.Build(Prefix.Module.app, Prefix.Action.version);
+
+            var versionStr = await _httpClient.GetStringAsync(uriTransferInfo);
+            return Version.Parse(versionStr);
+        }
+
         public async Task<int> GetApiVersion()
         {
-            return int.Parse(await _httpClient.GetStringAsync(new Uri("/version/api", UriKind.Relative)));
+
+            var uriTransferInfo = Prefix.Build(Prefix.Module.app, Prefix.Action.webapiVersion);
+
+            return int.Parse(await _httpClient.GetStringAsync(uriTransferInfo));
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public async Task<int> GetApiMinVersion()
         {
             return int.Parse(await _httpClient.GetStringAsync(new Uri("/version/api_min", UriKind.Relative)));
         }
 
-        public async Task<Version> GetQBittorrentVersion()
-        {
-            var versionStr = await _httpClient.GetStringAsync(new Uri("/version/qbittorrent", UriKind.Relative));
-            return Version.Parse(versionStr);
-        }
+
 
         public async Task<IList<Torrent>> GetTorrents(Filter filter = Filter.All, string category = null)
         {
@@ -260,14 +328,6 @@ namespace qBittorrent.qBittorrentApi
             return httpResponseMessage.IsSuccessStatusCode;
         }
 
-        public async Task<TransferInfo> GetTransferInfo()
-        {
-            await CheckAuthentification();
 
-            var uriTransferInfo = new Uri("/query/transferInfo", UriKind.Relative);
-            var jsonStr = await _httpClient.GetStringAsync(uriTransferInfo);
-
-            return JsonConvert.DeserializeObject<TransferInfo>(jsonStr);
-        }
     }
 }
